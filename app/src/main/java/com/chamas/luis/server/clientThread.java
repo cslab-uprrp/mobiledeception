@@ -3,18 +3,23 @@ package com.chamas.luis.server;
 /**
  * Created by Luis on 3/17/2015.
  */
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.widget.Toast;
 
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-/**
- * Created by Hector Roman on 3/15/2015.
- */
-public class clientThread extends Thread {
+public class clientThread extends Thread implements SensorEventListener {
     Socket clientSocket;
     serverService mainO;
+    private SensorManager mSensorMan;
+    private Sensor mAccel;
+    double mSensorX, mSensorY, mSensorZ;
+
 
     public clientThread(Socket sock, serverService mainOb){
         clientSocket = sock;
@@ -27,7 +32,14 @@ public class clientThread extends Thread {
         while(mainO.serverOn) {
             try {
                 DataInputStream in = new DataInputStream(clientSocket.getInputStream());
-                double sensorData = in.readDouble();
+                String sensorData = in.readUTF();
+                if(sensorData == "accelX"){
+
+                }else if(sensorData == "accelY"){
+
+                }else if(sensorData == "accelZ"){
+
+                }
 //                Toast.makeText(mainO.getApplicationContext(), "Sensor Data: " + String.valueOf(sensorData), Toast.LENGTH_LONG).show();
             } catch (Exception e) {
 //                Toast.makeText(mainO.getApplicationContext(), "Error Reading From Client", Toast.LENGTH_LONG).show();
@@ -38,5 +50,15 @@ public class clientThread extends Thread {
         } catch (Exception exc) {
 //            Toast.makeText(mainO.getApplicationContext(),"Error Terminating Client Connection" , Toast.LENGTH_LONG);
         }
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
     }
 }
