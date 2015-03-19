@@ -1,9 +1,11 @@
 package com.chamas.luis.client;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -35,5 +37,15 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void startClient(View view) {
+        Intent i = new Intent(this, clientService.class);
+        startService(i);
+    }
+
+    public void stopClient(View view) {
+        Intent i = new Intent(this, clientService.class);
+        stopService(i);
     }
 }
