@@ -1,17 +1,31 @@
 package com.chamas.luis.server;
 
+import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
+import java.net.Socket;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements SensorEventListener{
+    private SensorManager mSensorMan;
+    private Sensor mAccel;
+    double mSensorX, mSensorY, mSensorZ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mSensorMan = (SensorManager)getSystemService(SENSOR_SERVICE);
+        mAccel = mSensorMan.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
     }
 
 
@@ -35,5 +49,47 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void startServer(View view) {
+        Intent i = new Intent(this, serverService.class);
+        i.putExtra("accelX", mSensorX);
+        startService(i);
+    }
+
+    public void stopServer(View view) {
+        Intent i = new Intent(this, serverService.class);
+        stopService(i);
+    }
+
+    public void quit(View view) {
+        Intent i = new Intent(this, serverService.class);
+        stopService(i);
+        System.exit(0);
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        if(event.sensor.getType() != Sensor.TYPE_ACCELEROMETER){
+            return;
+        }else{
+            double alpha = 0.8;
+            double[] gravity = new double [3];
+
+            //Isolate the force of gravity with the low pass filter
+            gravity[0] = alpha * gravity[0] + (1-alpha) * event.values[0];
+            gravity[1] = alpha * gravity[1] + (1-alpha) * event.values[1];
+            gravity[2] = alpha * gravity[2] + (1-alpha) * event.values[2];
+
+            //Remove gravity contribution with the high pass filter
+            mSensorX = event.values[0] - gravity[0];
+            mSensorY = event.values[1] - gravity[1];
+            mSensorZ = event.values[2] - gravity[2];
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
     }
 }
