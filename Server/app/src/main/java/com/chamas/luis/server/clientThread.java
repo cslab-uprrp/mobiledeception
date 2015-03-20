@@ -6,6 +6,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.net.Socket;
 
 /**
@@ -31,14 +32,10 @@ public class clientThread extends Thread implements SensorEventListener {
             try {
                 DataInputStream in = new DataInputStream(clientSocket.getInputStream());
                 String sensorData = in.readUTF();
-                if(sensorData == "accelX"){
+                DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream());
+                out.writeUTF(mainO.getSense(sensorData));
 
-                }else if(sensorData == "accelY"){
-
-                }else if(sensorData == "accelZ"){
-
-                }
-//                Toast.makeText(mainO.getApplicationContext(), "Sensor Data: " + String.valueOf(sensorData), Toast.LENGTH_LONG).show();
+//               Toast.makeText(mainO.getApplicationContext(), "Sensor Data: " + String.valueOf(sensorData), Toast.LENGTH_LONG).show();
             } catch (Exception e) {
 //                Toast.makeText(mainO.getApplicationContext(), "Error Reading From Client", Toast.LENGTH_LONG).show();
             }

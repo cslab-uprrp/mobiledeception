@@ -24,8 +24,8 @@ public class MainActivity extends ActionBarActivity implements SensorEventListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mSensorMan = (SensorManager)getSystemService(SENSOR_SERVICE);
-        mAccel = mSensorMan.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+//        mSensorMan = (SensorManager)getSystemService(SENSOR_SERVICE);
+//        mAccel = mSensorMan.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
     }
 
 
