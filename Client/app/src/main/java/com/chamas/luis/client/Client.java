@@ -8,21 +8,34 @@ import java.io.OutputStream;
 import java.net.Socket;
 
 /**
- * Created by Luis on 3/19/2015.
+ * Created by Luis on 3/17/2015.
  */
-public class Client extends Thread{
+public class Client extends Thread {
+    clientService object;
+
+    public Client(clientService obj){
+        object = obj;
+    }
+
     @Override
     public void run(){
         try{
-            Socket clientSocket = new Socket("localhost", 8000);
+            Socket clientSocket = new Socket("192.168.1.63", 8000);
             OutputStream outToServer = clientSocket.getOutputStream();
             DataOutputStream out = new DataOutputStream(outToServer);
             out.writeUTF("accelX");
             InputStream inFromServer = clientSocket.getInputStream();
             DataInputStream in = new DataInputStream(inFromServer);
-            String value = in.readUTF();
+            // String valor = in.readUTF();
+            // object.hello = valor;
+            double valor = in.readDouble();
+            object.setSense(valor);
+            clientSocket.close();
+
         }catch (IOException e){
             e.printStackTrace();
         }
     }
+
+
 }

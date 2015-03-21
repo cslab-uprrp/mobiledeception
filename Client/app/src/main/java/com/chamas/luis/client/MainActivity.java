@@ -6,14 +6,19 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 
 
 public class MainActivity extends ActionBarActivity {
+    String ip ="";
+    private EditText new_ip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        new_ip = (EditText)findViewById(R.id.editText);
+
     }
 
 
@@ -40,12 +45,17 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void startClient(View view) {
-        Intent i = new Intent(this, clientService.class);
-        startService(i);
+        Intent client = new Intent(this, clientService.class);
+        //client.putExtra("ip", ip);
+        startService(client);
     }
 
     public void stopClient(View view) {
-        Intent i = new Intent(this, clientService.class);
-        stopService(i);
+        Intent client = new Intent(this, clientService.class);
+        stopService(client);
+    }
+
+    public void setIp(View view) {
+        ip = String.valueOf(new_ip.getText());
     }
 }
