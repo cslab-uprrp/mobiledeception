@@ -15,9 +15,7 @@ import java.net.Socket;
 public class clientThread extends Thread implements SensorEventListener {
     Socket clientSocket;
     serverService mainO;
-    private SensorManager mSensorMan;
-    private Sensor mAccel;
-    double mSensorX, mSensorY, mSensorZ;
+
 
 
     public clientThread(Socket sock, serverService mainOb){
