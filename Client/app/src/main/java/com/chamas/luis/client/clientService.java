@@ -9,8 +9,8 @@ import android.widget.Toast;
  * Created by Luis on 3/17/2015.
  */
 public class clientService extends Service {
-    double sense=0.0;
-//    String hello="nope";
+    double sense;
+    String hello="nope";
 //    String ip;
 
     MainActivity qwe;
@@ -47,8 +47,11 @@ public class clientService extends Service {
 //        if(num > sense || num < sense){
 //           Toast.makeText(this, String.valueOf(num) + " and " + String.valueOf(sense), Toast.LENGTH_SHORT).show();
 //        }
-
         sense = num;
+    }
+
+    public void setHello(String yo){
+        hello = yo;
     }
 
 }

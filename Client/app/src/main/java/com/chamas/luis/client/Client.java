@@ -20,15 +20,17 @@ public class Client extends Thread {
     @Override
     public void run(){
         try{
-            Socket clientSocket = new Socket("192.168.1.63", 8000);
+            Socket clientSocket = new Socket("192.168.1.113", 8000);
             OutputStream outToServer = clientSocket.getOutputStream();
             DataOutputStream out = new DataOutputStream(outToServer);
-            out.writeUTF("accelX");
+            out.writeDouble(4);
             InputStream inFromServer = clientSocket.getInputStream();
             DataInputStream in = new DataInputStream(inFromServer);
-            // String valor = in.readUTF();
-            // object.hello = valor;
+            //String valor = in.readUTF();
+            //object.setHello(valor);
+             //object.hello = valor;
             double valor = in.readDouble();
+            object.sense = valor;
             object.setSense(valor);
             clientSocket.close();
 
