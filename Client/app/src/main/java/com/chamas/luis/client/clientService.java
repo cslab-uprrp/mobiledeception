@@ -10,10 +10,10 @@ import android.widget.Toast;
  */
 public class clientService extends Service {
     double sense;
+    String ip;
     String hello="nope";
 //    String ip;
 
-    MainActivity qwe;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -24,13 +24,12 @@ public class clientService extends Service {
     public void onCreate() {
         super.onCreate();
         Toast.makeText(this, "Client Service Created", Toast.LENGTH_SHORT).show();
-//        Intent activityThatCalled=null;
-//        ip = qwe.ip;
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Toast.makeText(this, "Client Started", Toast.LENGTH_SHORT).show();
+        ip = intent.getExtras().getString("ip");
         Client client = new Client(this);
         client.start();
         return START_STICKY;
@@ -48,6 +47,10 @@ public class clientService extends Service {
 //           Toast.makeText(this, String.valueOf(num) + " and " + String.valueOf(sense), Toast.LENGTH_SHORT).show();
 //        }
         sense = num;
+    }
+
+    public void showVal(double val){
+        Toast.makeText(this, "Sensor Value: " + String.valueOf(val), Toast.LENGTH_LONG).show();
     }
 
     public void setHello(String yo){

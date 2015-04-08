@@ -46,7 +46,7 @@ public class MainActivity extends ActionBarActivity {
 
     public void startClient(View view) {
         Intent client = new Intent(this, clientService.class);
-        //client.putExtra("ip", ip);
+        client.putExtra("ip", ip);
         startService(client);
     }
 
