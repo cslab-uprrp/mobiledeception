@@ -30,13 +30,5 @@
         android:layout_alignStart="@+id/start"
         android:layout_marginTop="65dp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/Quit"
-        android:onClick="quit"
-        android:id="@+id/quit"
-        android:layout_marginTop="67dp"
-        android:layout_below="@+id/stop"
-        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>
